@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:world_time/model/world_time_response.dart';
 
 
@@ -20,9 +21,11 @@ class WorldTime {
 
       DateTime datetime = DateTime.parse(worldTimeResponse.datetime);
       datetime = datetime.add(Duration(seconds: worldTimeResponse.rawOffset));
-      time = datetime.toString();
+      time = DateFormat.jm().format(datetime);
+
     } catch(e) {
       print("Caught error $e");
+      time = "Could not get time";
     }
   }
 }
