@@ -16,13 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void setupTime () async {
     LocationCatalog locationCatalog = LocationCatalog.lookUp("Lagos");
-    WorldTime worldTime = WorldTime(locationCatalog.city, locationCatalog.flag, locationCatalog.timezone);
+    WorldTime worldTime = WorldTime(locationCatalog);
 
     await Future.delayed(const Duration(seconds: 3), () async => {
       await worldTime.getTime()
     });
 
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => Home(worldTime: worldTime),
@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.amber[600],
       body: Center(
-        child: SpinKitWanderingCubes(
+        child: SpinKitFadingCube(
           itemBuilder: (BuildContext context, int index) {
             return DecoratedBox(
               decoration: BoxDecoration(

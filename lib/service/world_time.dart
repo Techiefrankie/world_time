@@ -4,15 +4,23 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:world_time/model/world_time_response.dart';
 
+import '../data/location_catalog.dart';
+
 
 class WorldTime {
-  String location;
+  late String location;
   late String time;
-  String flag;
-  String timezone;
+  late String flag;
+  late String timezone;
+  bool isDayTime = false;
+  LocationCatalog locationCatalog;
 
 
-  WorldTime(this.location, this.flag, this.timezone);
+  WorldTime(this.locationCatalog) {
+    location = locationCatalog.city;
+    flag = locationCatalog.flag;
+    timezone = locationCatalog.timezone;
+  }
 
   Future<void> getTime() async {
     try {
@@ -21,7 +29,10 @@ class WorldTime {
 
       DateTime datetime = DateTime.parse(worldTimeResponse.datetime);
       datetime = datetime.add(Duration(seconds: worldTimeResponse.rawOffset));
+
+      // set the time and isDayTime parameters
       time = DateFormat.jm().format(datetime);
+      isDayTime = datetime.hour > 6 && datetime.hour < 20 ? true : false;
 
     } catch(e) {
       print("Caught error $e");
