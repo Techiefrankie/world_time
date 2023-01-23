@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/pages/choose_location.dart';
 import 'package:world_time/service/world_time.dart';
+import 'package:world_time/data/location_catalog.dart';
 
 class Home extends StatefulWidget {
   final WorldTime worldTime;
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
     // Determine background image and color
     String bgImage = worldTime.isDayTime ? "day.jpg" : "night.jpg";
     Color? bgColor = worldTime.isDayTime ? Colors.blue[200] : Colors.white10;
+    Color? txtColor = worldTime.isDayTime ? Colors.black : Colors.white;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -37,21 +39,21 @@ class _HomeState extends State<Home> {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ChooseLocation(),
+                          builder: (context) => const ChooseLocation(locationCatalog: LocationCatalog.values),
                         ));
                   },
                   icon:  Icon(
                     Icons.edit_location,
-                    color: Colors.grey[300],
+                    color: txtColor,
                     size: 24.0,
                   ),
                   label: Text(
                       'Edit Location',
                     style: TextStyle(
-                      color: Colors.grey[300]
+                      color: txtColor
                     ),
                   ),
                 ),
@@ -60,13 +62,13 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(worldTime.location,
-                      style: const TextStyle(fontSize: 28.0, letterSpacing: 2.0, color: Colors.white),
+                      style: TextStyle(fontSize: 28.0, letterSpacing: 2.0, color: txtColor),
                     )
                   ],
                 ),
                 const SizedBox(height: 20.0),
                 Text(worldTime.time,
-                  style: const TextStyle(fontSize: 66.0, color: Colors.white),
+                  style: TextStyle(fontSize: 66.0, color: txtColor),
                 )
               ],
             ),

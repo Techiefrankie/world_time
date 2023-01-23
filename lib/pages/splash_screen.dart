@@ -12,7 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String time = "Loading...";
 
   void setupTime () async {
     LocationCatalog locationCatalog = LocationCatalog.lookUp("Lagos");
