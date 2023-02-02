@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ChooseLocation(locationCatalog: LocationCatalog.values),
